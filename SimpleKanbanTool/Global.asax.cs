@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Ninject;
+using SimpleKanbanTool.Models;
 
 namespace SimpleKanbanTool
 {
@@ -17,6 +19,15 @@ namespace SimpleKanbanTool
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+        }
+
+        public static void Configure(HttpConfiguration config)
+        {
+            var kernel = new StandardKernel();
+            kernel.Bind<ITaskRepository>().ToConstant(new DictionaryTaskRepository());
+            config.ServiceResolver.SetResolver(
+                t => kernel.TryGet(t),
+                t => kernel.GetAll(t));
         }
 
         public static void RegisterRoutes(RouteCollection routes)
@@ -41,6 +52,7 @@ namespace SimpleKanbanTool
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
+            Configure(GlobalConfiguration.Configuration);
             RegisterRoutes(RouteTable.Routes);
 
             BundleTable.Bundles.RegisterTemplateBundles();
