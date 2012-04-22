@@ -12,5 +12,10 @@ namespace SimpleKanbanTool.Controllers
         {
             return View();
         }
+
+        public ActionResult Teste()
+        {
+            return View();
+        }
     }
 }
