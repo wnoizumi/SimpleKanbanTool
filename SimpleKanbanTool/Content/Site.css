@@ -2,17 +2,18 @@
 ----------------------------------------------------------*/
 
 #toDo, #doing, #done {
-    height: 800px;
+    min-height: 400px;
     background-color: #EAF4FF;
     font-size: medium;
     font-weight: bold;
     text-align: center;    
 }
 
-.card
-{
-    height: 200px;
-    width: 200px;
+.card {
+    padding: 10px;
+    height: 100px;
+    width: 100px;
     background-color: #FFFF99;
+    overflow: auto;
 }
 

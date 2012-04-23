@@ -19,7 +19,8 @@ namespace SimpleKanbanTool.Controllers
 
         public IEnumerable<Task> GetTasks()
         {
-            return repository.Get();
+            var tasks = repository.Get().ToList<Task>();
+            return tasks;
         }
 
         public HttpResponseMessage<Task> PostTask(Task task)

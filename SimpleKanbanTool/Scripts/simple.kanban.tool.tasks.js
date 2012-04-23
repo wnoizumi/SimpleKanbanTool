@@ -28,7 +28,7 @@ function loadTasks() {
         var todoCount = 0;
 
         $.each(data, function (key, val) {
-            var card = '<div class="card" id="task' + val.Id + '">' + val.Title + '</div>';
+            var card = '<div class="card" id="task' + val.id + '">' + val.title + '</div>';
             $(card).appendTo($('#toDo'));
             todoCount++;
         });
@@ -37,7 +37,7 @@ function loadTasks() {
 }
 
 function loadTask(data) {
-    var card = '<div class="card" id="task' + data.Id + '">' + data.Title + '</div>';
+    var card = '<div class="card" id="task' + data.id + '">' + data.title + '</div>';
     $(card).appendTo($('#toDo'));
     $(".card").draggable();
 }

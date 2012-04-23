@@ -5,7 +5,8 @@ using System.Web;
 
 namespace SimpleKanbanTool.Models
 {
-    public class DictionaryTaskRepository : ITaskRepository
+    [Serializable]
+    public class DictionaryTaskRepository : System.MarshalByRefObject, ITaskRepository
     {
         private int nextId = 0;
         private readonly Dictionary<int, Task> tasks = new Dictionary<int, Task>();

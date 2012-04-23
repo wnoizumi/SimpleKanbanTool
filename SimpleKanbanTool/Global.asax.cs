@@ -8,6 +8,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Ninject;
 using SimpleKanbanTool.Models;
+using System.IO;
+using Bamboo.Prevalence;
 
 namespace SimpleKanbanTool
 {
@@ -16,6 +18,9 @@ namespace SimpleKanbanTool
 
     public class WebApiApplication : System.Web.HttpApplication
     {
+        private static PrevalenceEngine engine;
+        private static DictionaryTaskRepository repository;   
+
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
@@ -24,7 +29,7 @@ namespace SimpleKanbanTool
         public static void Configure(HttpConfiguration config)
         {
             var kernel = new StandardKernel();
-            kernel.Bind<ITaskRepository>().ToConstant(new DictionaryTaskRepository());
+            kernel.Bind<ITaskRepository>().ToConstant(repository);
             config.ServiceResolver.SetResolver(
                 t => kernel.TryGet(t),
                 t => kernel.GetAll(t));
@@ -49,6 +54,11 @@ namespace SimpleKanbanTool
 
         protected void Application_Start()
         {
+            string prevalenceBase = (string)AppDomain.CurrentDomain.GetData("DataDirectory") ?? AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+            prevalenceBase = Path.Combine(prevalenceBase, "data");
+            engine = PrevalenceActivator.CreateTransparentEngine(typeof(DictionaryTaskRepository), prevalenceBase);
+            repository = engine.PrevalentSystem as DictionaryTaskRepository;
+
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
@@ -56,6 +66,12 @@ namespace SimpleKanbanTool
             RegisterRoutes(RouteTable.Routes);
 
             BundleTable.Bundles.RegisterTemplateBundles();
+        }
+
+        public override void Dispose()
+        {
+            engine.TakeSnapshot();
+            base.Dispose();
         }
     }
 }
