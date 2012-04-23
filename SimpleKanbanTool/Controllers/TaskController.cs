@@ -26,7 +26,7 @@ namespace SimpleKanbanTool.Controllers
         {
             task = repository.Add(task);
             var response = new HttpResponseMessage<Task>(task, HttpStatusCode.Created);
-            response.Headers.Location = new Uri(Request.RequestUri, "api/tasks/" + task.Id);
+            response.Headers.Location = new Uri(Request.RequestUri, "api/task/" + task.Id);
             return response;
         }
 

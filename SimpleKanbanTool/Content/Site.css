@@ -6,10 +6,10 @@
     background-color: #EAF4FF;
     font-size: medium;
     font-weight: bold;
-    text-align: center;
+    text-align: center;    
 }
 
-#card
+.card
 {
     height: 200px;
     width: 200px;
