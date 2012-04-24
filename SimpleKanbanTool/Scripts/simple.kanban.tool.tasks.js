@@ -30,6 +30,8 @@
             statusCode: {
                 201 /*Created*/: function (data) {
                     loadTask(data);
+                    $('#title').val("");
+                    $('#description').val("");
                 }
             }
         });
