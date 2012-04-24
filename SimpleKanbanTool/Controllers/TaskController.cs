@@ -33,17 +33,17 @@ namespace SimpleKanbanTool.Controllers
 
         public Task DeleteTask(int id)
         {
-            Task task;
-            if (!repository.TryGet(id, out task))
+            Task task = repository.Get(id);
+            if (task == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             repository.Delete(id);
             return task;
         }
 
-        public void ChangeTaskStatus(Task value)
+        public void PutTask(int id, Task value)
         {
-            Task task;
-            if (!repository.TryGet(value.Id, out task))
+            Task task = repository.Get(id);
+            if (task == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             task.Status = value.Status;
         }

@@ -26,9 +26,11 @@ namespace SimpleKanbanTool.Models
             }
         }
 
-        public bool TryGet(int id, out Task task)
+        public Task Get(int id)
         {
-            return tasks.TryGetValue(id, out task);
+            if (tasks.ContainsKey(id))
+                return tasks[id];
+            return null;
         }
 
         public bool Delete(int id)

@@ -8,11 +8,6 @@ namespace SimpleKanbanTool.Models
     [Serializable]
     public class Task
     {
-        public Task()
-        {
-            Status = global::Status.ToDo;
-        }
-
         private int id;
         public int Id
         {

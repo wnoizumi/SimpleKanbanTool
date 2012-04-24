@@ -4,11 +4,21 @@
     allStatus[1] = "doing";
     allStatus[2] = "done";
 
+    $("#toDo").droppable({
+        drop: handleDropEvent
+    });
+    $("#doing").droppable({
+        drop: handleDropEvent
+    });
+    $("#done").droppable({
+        drop: handleDropEvent
+    });
+
     loadTasks();    
     $("#saveTask").click(function (e) {
         var title = $('#title').val();
         var description = $('#description').val();
-        var task = { Id: 0, Title: title, Description: description };
+        var task = { Id: 0, Title: title, Description: description, Status: 0 };
         var json = JSON.stringify(task);
 
         $.ajax({
@@ -45,7 +55,6 @@ function loadTask(val) {
     $(card).appendTo($('#' + allStatus[val.status]));
     $("#" + id).draggable({
         cursor: 'move',
-        stop: handleDragStop
     });
 
     $("#" + id).children(".close").click(function (e) {
@@ -69,7 +78,24 @@ function loadTask(val) {
     });
 }
 
-function handleDragStop(event, ui) {
+function handleDropEvent(event, ui) {  
+    var card = ui.draggable;
+    var status = $(this).attr('id');
 
+    if (card.parent().attr('id') != status)
+    {
+        var taskId = card.attr('id').replace("task", "");
+
+        var task = { Id: taskId, Title: "", Description: "", Status: allStatus.indexOf(status) };
+        var json = JSON.stringify(task);
+
+        $.ajax({
+            url: "/api/task/" + taskId,
+            type: 'PUT',
+            cache: false,
+            data: json,
+            contentType: 'application/json; charset=utf-8',
+        });
+    }
 }
 

@@ -11,7 +11,7 @@ namespace SimpleKanbanTool.Models
 
         Task Add(Task task);
 
-        bool TryGet(int id, out Task task);
+        Task Get(int id);
 
         bool Delete(int id);
     }
