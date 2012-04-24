@@ -44,24 +44,22 @@
           <div class="span4" id="done">Done</div>
         </div>
     
-
-    
-            <div class="modal" id="addTask" style="display: none;">
-                <div class="modal-header">
-                    <a class="close" data-dismiss="modal">×</a>
-                    <h3>Add Task</h3>
-                </div>
-                <div class="modal-body">
-                     <label for="title">Title:</label>
-                     <input type="text" id="title" size="5"/>
-                     <label for="description">Description:</label>
-                     <textarea id="description" rows="5" cols="5"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn" data-dismiss="modal">Close</a>
-                    <a href="#" class="btn btn-primary" data-dismiss="modal" id="saveTask">Save changes</a>
-                </div>
+        <div class="modal" id="addTask" style="display: none;">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Add Task</h3>
             </div>
+            <div class="modal-body">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" size="5"/>
+                    <label for="description">Description:</label>
+                    <textarea id="description" rows="5" cols="5"></textarea>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Close</a>
+                <a href="#" class="btn btn-primary" data-dismiss="modal" id="saveTask">Save changes</a>
+            </div>
+        </div>
     </div>
     
     <script src="@Url.Content("~/Scripts/jquery-1.7.2.min.js")"></script>

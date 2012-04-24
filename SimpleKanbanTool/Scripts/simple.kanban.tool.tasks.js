@@ -1,5 +1,10 @@
 ﻿$(document).ready(function () {
-    loadTasks();
+    allStatus = new Array();
+    allStatus[0] = "toDo";
+    allStatus[1] = "doing";
+    allStatus[2] = "done";
+
+    loadTasks();    
     $("#saveTask").click(function (e) {
         var title = $('#title').val();
         var description = $('#description').val();
@@ -25,19 +30,46 @@
 function loadTasks() {
     $.getJSON("api/task/",
     function (data) {
-        var todoCount = 0;
-
         $.each(data, function (key, val) {
-            var card = '<div class="card" id="task' + val.id + '">' + val.title + '</div>';
-            $(card).appendTo($('#toDo'));
-            todoCount++;
+            loadTask(val);
         });
-        $(".card").draggable();
     });
 }
 
-function loadTask(data) {
-    var card = '<div class="card" id="task' + data.id + '">' + data.title + '</div>';
-    $(card).appendTo($('#toDo'));
-    $(".card").draggable();
+function loadTask(val) {
+    var id = 'task' + val.id;
+    var card = '<div class="card" id="' + id + '">' +
+            '<button class="close">x</button>' +
+            val.title + '</div>';
+    
+    $(card).appendTo($('#' + allStatus[val.status]));
+    $("#" + id).draggable({
+        cursor: 'move',
+        stop: handleDragStop
+    });
+
+    $("#" + id).children(".close").click(function (e) {
+        var confirmed = confirm("Are you sure?");
+        if (confirmed == true) {
+            var card = $(this).parent();
+            var id = card.attr("id");
+            id = id.replace("task", "");
+
+            $.ajax({
+                url: "/api/task/" + id,
+                type: 'DELETE',
+                cache: false,
+                statusCode: {
+                    200: function (data) {
+                        card.remove();
+                    }
+                }
+            });
+        }
+    });
 }
+
+function handleDragStop(event, ui) {
+
+}
+

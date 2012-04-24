@@ -19,7 +19,7 @@ namespace SimpleKanbanTool
     public class WebApiApplication : System.Web.HttpApplication
     {
         private static PrevalenceEngine engine;
-        private static DictionaryTaskRepository repository;   
+        private static PrevalenceTaskDao repository;   
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
@@ -56,8 +56,8 @@ namespace SimpleKanbanTool
         {
             string prevalenceBase = (string)AppDomain.CurrentDomain.GetData("DataDirectory") ?? AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
             prevalenceBase = Path.Combine(prevalenceBase, "data");
-            engine = PrevalenceActivator.CreateTransparentEngine(typeof(DictionaryTaskRepository), prevalenceBase);
-            repository = engine.PrevalentSystem as DictionaryTaskRepository;
+            engine = PrevalenceActivator.CreateTransparentEngine(typeof(PrevalenceTaskDao), prevalenceBase);
+            repository = engine.PrevalentSystem as PrevalenceTaskDao;
 
             AreaRegistration.RegisterAllAreas();
 

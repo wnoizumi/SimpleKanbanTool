@@ -6,7 +6,7 @@ using System.Web;
 namespace SimpleKanbanTool.Models
 {
     [Serializable]
-    public class DictionaryTaskRepository : System.MarshalByRefObject, ITaskRepository
+    public class PrevalenceTaskDao : System.MarshalByRefObject, ITaskRepository
     {
         private int nextId = 0;
         private readonly Dictionary<int, Task> tasks = new Dictionary<int, Task>();
@@ -21,7 +21,7 @@ namespace SimpleKanbanTool.Models
             lock (this)
             {
                 task.Id = nextId++;
-                tasks.Add(nextId, task);
+                tasks.Add(task.Id, task);
                 return task;
             }
         }

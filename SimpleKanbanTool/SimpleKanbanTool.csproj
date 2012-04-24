@@ -128,7 +128,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DictionaryTaskRepository.cs" />
+    <Compile Include="Models\PrevalenceTaskDao.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\ITaskRepository.cs" />
     <Compile Include="Models\Task.cs" />
