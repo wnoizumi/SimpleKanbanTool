@@ -50,16 +50,22 @@ function loadTasks() {
 
 function loadTask(val) {
     var id = 'task' + val.id;
-    var card = '<div class="card" id="' + id + '">' +
+    var cardHtml = '<div class="card" id="' + id + '">' +
             '<button class="close">x</button>' +
             val.title + '</div>';
     
-    $(card).appendTo($('#' + allStatus[val.status]));
-    $("#" + id).draggable({
+    $(cardHtml).appendTo($('#' + allStatus[val.status]));
+    var card = $("#" + id);
+    card.draggable({
         cursor: 'move',
     });
 
-    $("#" + id).children(".close").click(function (e) {
+    if (val.topOffset > 0 && val.leftOffset > 0)
+    {
+        card.offset({ top: val.topOffset, left: val.leftOffset });
+    }
+
+    card.children(".close").click(function (e) {
         var confirmed = confirm("Are you sure?");
         if (confirmed == true) {
             var card = $(this).parent();
@@ -84,20 +90,19 @@ function handleDropEvent(event, ui) {
     var card = ui.draggable;
     var status = $(this).attr('id');
 
-    if (card.parent().attr('id') != status)
-    {
-        var taskId = card.attr('id').replace("task", "");
+    var taskId = card.attr('id').replace("task", "");
+    var topOffset = card.position().top;
+    var leftOffset = card.position().left;
 
-        var task = { Id: taskId, Title: "", Description: "", Status: allStatus.indexOf(status) };
-        var json = JSON.stringify(task);
+    var task = { Id: taskId, Title: "", Description: "", Status: allStatus.indexOf(status), TopOffset: topOffset, LeftOffset: leftOffset };
+    var json = JSON.stringify(task);
 
-        $.ajax({
-            url: "/api/task/" + taskId,
-            type: 'PUT',
-            cache: false,
-            data: json,
-            contentType: 'application/json; charset=utf-8',
-        });
-    }
+    $.ajax({
+        url: "/api/task/" + taskId,
+        type: 'PUT',
+        cache: false,
+        data: json,
+        contentType: 'application/json; charset=utf-8',
+    });
 }
 

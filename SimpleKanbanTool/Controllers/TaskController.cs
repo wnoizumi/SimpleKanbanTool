@@ -46,6 +46,8 @@ namespace SimpleKanbanTool.Controllers
             if (task == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             task.Status = value.Status;
+            task.TopOffset = value.TopOffset;
+            task.LeftOffset = value.LeftOffset;
         }
     }
 }

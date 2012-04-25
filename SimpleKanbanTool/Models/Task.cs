@@ -30,11 +30,24 @@ namespace SimpleKanbanTool.Models
         }
 
         private Status status;
-
         public Status Status
         {
             get { return status; }
             set { status = value; }
+        }
+
+        private int topOffset;
+        public int TopOffset
+        {
+            get { return topOffset; }
+            set { topOffset = value; }
+        }
+
+        private int leftOffset;
+        public int LeftOffset
+        {
+            get { return leftOffset; }
+            set { leftOffset = value; }
         }
 
     }

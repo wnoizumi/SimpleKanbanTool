@@ -1,12 +1,22 @@
 ﻿/* main layout
 ----------------------------------------------------------*/
 
-#toDo, #doing, #done {
-    min-height: 400px;
+#board {
+	min-height: 1000px;
     background-color: #EAF4FF;
     font-size: medium;
     font-weight: bold;
-    text-align: center;    
+    text-align: center;
+}
+
+#toDo, #doing, #done {
+    margin-left: 10px;
+    min-height: 1000px;
+}
+
+#doing, #done {
+	border-left-style: dashed;
+	border-left-width: thin;
 }
 
 .card {
@@ -15,5 +25,6 @@
     width: 100px;
     background-color: #FFFF99;
     overflow: auto;
+    font-size: small;
 }
 
