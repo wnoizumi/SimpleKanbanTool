@@ -1,4 +1,9 @@
 ﻿$(document).ready(function () {
+    $(init);
+    $(loadTasks);
+});
+
+function init() {
     allStatus = new Array();
     allStatus[0] = "toDo";
     allStatus[1] = "doing";
@@ -13,8 +18,7 @@
     $("#done").droppable({
         drop: handleDropEvent
     });
-
-    loadTasks();    
+        
     $("#saveTask").click(function (e) {
         var title = $('#title').val();
         var description = $('#description').val();
@@ -37,7 +41,7 @@
         });
         return true;
     });
-});
+}
 
 function loadTasks() {
     $.getJSON("api/task/",
